@@ -22,4 +22,4 @@ Route::get('/', function () {
     
     Route::resource('permissions', 'PermissionController');
     
-    Route::resource('posts', 'NewsController');
+    Route::resource('news', 'NewsController');
