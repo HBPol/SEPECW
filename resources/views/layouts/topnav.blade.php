@@ -28,6 +28,9 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
     								
     								<a class="dropdown-item" href="#"><i class="fas fa-cog"></i>&nbsp;Settings</a>
+    								@role('Admin') {{-- Laravel-permission blade helper --}}
+                                        <a href="#"><i class="fa fa-btn fa-unlock"></i>Admin</a>
+									@endrole
     								<a class="dropdown-item" href="#">Another item</a>
     								<div class="dropdown-divider"></div>
     								<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i>&nbsp;{{ __('Logout') }}</a>
