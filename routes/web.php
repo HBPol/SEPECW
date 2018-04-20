@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+<<<<<<< HEAD
     Route::get('/', 'NewsController@index')->name('home');
     
     Route::resource('users', 'UserController');
@@ -23,3 +24,9 @@ Route::get('/', function () {
     Route::resource('permissions', 'PermissionController');
     
     Route::resource('news', 'NewsController');
+=======
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+>>>>>>> refs/heads/feature/AccessControlList
