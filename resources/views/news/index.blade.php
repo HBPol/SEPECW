@@ -6,12 +6,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3>News</h3></div>
                     <div class="panel-heading">Page {{ $news->currentPage() }} of {{ $news->lastPage() }}</div>
-                    @foreach ($news as $news)
+                    @foreach ($news as $new)
                         <div class="panel-body">
                             <li style="list-style-type:disc">
-                                <a href="{{ route('news.show', $news->id ) }}"><b>{{ $news->title }}</b><br>
+                                <a href="{{ route('news.show', $new->id ) }}"><b>{{ $new->title }}</b><br>
                                     <p class="teaser">
-                                       {{  str_limit($news->body, 100) }} {{-- Limit teaser to 100 characters --}}
+                                       {{  str_limit($new->body, 100) }} {{-- Limit teaser to 100 characters --}}
                                     </p>
                                 </a>
                             </li>
