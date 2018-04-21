@@ -3,9 +3,12 @@
         <div class="collapse navbar-collapse" id="navbars_01">
         	<ul class="navbar-nav mr-auto">
         		<li class="nav-item active"><a class="nav-link" href="{{ route('home') }}"><i class="fas fa-home"></i></a></li>
-        		@if (!Auth::guest())
+        		@role('Staff')
                 	<li><a class="btn btn-outline-secondary ml-2 my-2 my-sm-0" href="{{ route('news.create') }}">New Article</a></li>
-                @endif
+                @endrole
+                @role('Admin')
+                	<li><a class="btn btn-outline-danger ml-2 my-2 my-sm-0" href="{{ route('users.index') }}">Users</a></li>
+                @endrole
         		<!-- <li class="nav-item"><a class="nav-link" href="#">Drawings</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Sculpture</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Photography</a></li>  -->				
