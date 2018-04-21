@@ -5,11 +5,20 @@
 @section('content')
 
 <div class="container">
-    <h1><i class="fa fa-key"></i>&nbsp;Available Permissions
-
-    <a href="{{ route('users.index') }}" class="btn btn-default pull-right">Users</a>
-    <a href="{{ route('roles.index') }}" class="btn btn-default pull-right">Roles</a></h1>
-    <hr>
+    
+	<ul class="nav nav-tabs">
+    	<li class="nav-item">
+        	<a class="nav-link" href="{{ route('users.index') }}">Users</a>
+        </li>
+        	<li class="nav-item">
+        	<a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+        </li>
+        	<li class="nav-item">
+        	<a class="nav-link  active" href="{{ route('permissions.index') }}">Permissions</a>
+        </li>
+    </ul>
+    <br>
+    
     <div class="table-responsive">
         <table class="table table-hover">
 
