@@ -5,8 +5,14 @@ namespace App\Http\Controllers;
 use App\ArtPiece;
 use Illuminate\Http\Request;
 
+use Auth;
+use Session;
+
 class ArtPieceController extends Controller
 {
+    public function __construct() {
+        $this->middleware(['auth', 'clearance'])->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,10 @@ class ArtPieceController extends Controller
      */
     public function index()
     {
-        //
+        //List all the available pieces of art
+        $artpieces = ArtPiece::orderby('id', 'desc')->paginate(10); //show only 5 items at a time in descending order
+        
+        return view('artpieces.index', compact('artpieces'));
     }
 
     /**
@@ -25,6 +34,7 @@ class ArtPieceController extends Controller
     public function create()
     {
         //
+        return view('artpieces.create');
     }
 
     /**
@@ -35,7 +45,26 @@ class ArtPieceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validating fields
+        $this->validate($request, [
+            'title'=>'required|max:100',
+            'description' =>'required',
+            'type' =>'required',
+            'artist' =>'required',
+        ]);
+        
+        $title = $request['title'];
+        $description = $request['description'];
+        $type = $request['type'];
+        $artist = $request['artist'];
+        
+        
+        $artpieces = ArtPiece::create($request->only('title', 'description', 'type', 'artist'));
+        
+        //Display a successful message upon save
+        return redirect()->route('artpieces.index')
+        ->with('flash_message', 'Article,
+             '. $news->title.' created');
     }
 
     /**
@@ -44,9 +73,12 @@ class ArtPieceController extends Controller
      * @param  \App\ArtPiece  $artPiece
      * @return \Illuminate\Http\Response
      */
-    public function show(ArtPiece $artPiece)
+    public function show($id)
     {
-        //
+        //Find ArtPieces of id = $id
+        $artPiece = ArtPiece::findOrFail($id); 
+        
+        return view ('artpieces.show', compact('artPiece'));
     }
 
     /**
@@ -55,9 +87,12 @@ class ArtPieceController extends Controller
      * @param  \App\ArtPiece  $artPiece
      * @return \Illuminate\Http\Response
      */
-    public function edit(ArtPiece $artPiece)
+    public function edit($id)
     {
         //
+        $artPiece = ArtPiece::findOrFail($id);
+        
+        return view('artpieces.edit', compact('artPiece'));
     }
 
     /**
@@ -67,9 +102,26 @@ class ArtPieceController extends Controller
      * @param  \App\ArtPiece  $artPiece
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ArtPiece $artPiece)
+    public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'title'=>'required|max:100',
+            'description' =>'required',
+            'type' =>'required',
+            'artist' =>'required',
+        ]);
+        
+        $artPiece = ArtPiece::findOrFail($id);
+        $artPiece->title = $request->input('title');
+        $artPiece->description = $request->input('description');
+        $artPiece->type = $request->input('type');
+        $artPiece->artist = $request->input('artist');
+        $artPiece->save();
+        
+        return redirect()->route('artpieces.show',
+            $artPiece->id)->with('flash_message',
+                'Article, '. $artPiece->title.' updated');
     }
 
     /**
@@ -78,8 +130,15 @@ class ArtPieceController extends Controller
      * @param  \App\ArtPiece  $artPiece
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ArtPiece $artPiece)
+    public function destroy($id)
     {
         //
+        //
+        $artPiece = ArtPiece::findOrFail($id);
+        $artPiece->delete();
+        
+        return redirect()->route('artpieces.index')
+        ->with('flash_message',
+            'Item successfully deleted');
     }
 }

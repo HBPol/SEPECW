@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\News;
 use Illuminate\Http\Request;
 
-use App\News;
 use Auth;
 use Session;
 
@@ -71,8 +71,8 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        //
-        $news = News::findOrFail($id); //Find news of id = $id
+        //Find news of id = $id
+        $news = News::findOrFail($id);
         
         return view ('news.show', compact('news'));
     }
