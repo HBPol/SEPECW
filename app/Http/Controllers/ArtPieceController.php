@@ -57,14 +57,15 @@ class ArtPieceController extends Controller
         $description = $request['description'];
         $type = $request['type'];
         $artist = $request['artist'];
+        $price = $request['price'];
         
         
-        $artpieces = ArtPiece::create($request->only('title', 'description', 'type', 'artist'));
+        $artpieces = ArtPiece::create($request->only('title', 'description', 'type', 'artist', 'price'));
         
         //Display a successful message upon save
         return redirect()->route('artpieces.index')
-        ->with('flash_message', 'Article,
-             '. $news->title.' created');
+        ->with('flash_message', 'New item ,
+             '. $artpieces->title.' created');
     }
 
     /**
@@ -110,6 +111,7 @@ class ArtPieceController extends Controller
             'description' =>'required',
             'type' =>'required',
             'artist' =>'required',
+            'price' =>'required',
         ]);
         
         $artPiece = ArtPiece::findOrFail($id);
@@ -117,6 +119,7 @@ class ArtPieceController extends Controller
         $artPiece->description = $request->input('description');
         $artPiece->type = $request->input('type');
         $artPiece->artist = $request->input('artist');
+        $artPiece->price = $request->input('price');
         $artPiece->save();
         
         return redirect()->route('artpieces.show',

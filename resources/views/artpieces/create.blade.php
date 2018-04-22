@@ -32,6 +32,11 @@
             {{ Form::label('artist', 'Artist:') }}
             {{ Form::text('artist', null, array('class' => 'form-control')) }}
             <br>
+            
+            {{ Form::label('price', 'Price:') }}
+            {{ Form::text('price', null, array('class' => 'form-control')) }}
+            <br>
+            
     
             {{ Form::submit('Add', array('class' => 'btn btn-success btn-lg btn-block')) }}
             
