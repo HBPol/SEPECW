@@ -37,7 +37,7 @@
             {{ Form::text('price', null, array('class' => 'form-control')) }}
             <br>
             
-            {{ Form::label('filename', 'Upload image:') }}
+            {{ Form::label('filename', 'Upload new image:') }}
             {{ Form::file('filename', null, array('class' => 'form-control')) }}
             <br>
 

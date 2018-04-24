@@ -85,7 +85,6 @@ class ArtPieceController extends Controller
         //Find ArtPieces of id = $id
         $artpiece = ArtPiece::findOrFail($id);
         
-        
         return view ('artpieces.show', compact('artpiece'));
     }
 
@@ -119,7 +118,7 @@ class ArtPieceController extends Controller
             'type' =>'required',
             'artist' =>'required',
             'price' =>'required',
-            'filename' => 'required',
+            'filename' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
         $artPiece = ArtPiece::findOrFail($id);
@@ -128,7 +127,19 @@ class ArtPieceController extends Controller
         $artPiece->type = $request->input('type');
         $artPiece->artist = $request->input('artist');
         $artPiece->price = $request->input('price');
-        $artPiece->filename = $request->input('filename');
+        
+       
+        
+        //Get the client's image filename
+        $filename = $request['filename']->getClientOriginalName();
+        
+        $artPiece->filename = $filename;
+        
+        
+        //Move the file to /img within the public folder
+        $request['filename']->move(public_path('img'), $filename);  
+        
+        
         $artPiece->save();
         
         return redirect()->route('artpieces.show',

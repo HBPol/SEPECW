@@ -6,7 +6,7 @@
 
     <div class="col-md-8 col-md-offset-2">
 
-        <h1>Add a new art item</h1>
+        <h1>Add a new item</h1>
         <hr>
     	{{-- Using the Laravel HTML Form Collective to create the form --}}
         {{ Form::open(array('route' => 'artpieces.store', 'files' => true)) }}
