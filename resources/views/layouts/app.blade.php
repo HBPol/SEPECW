@@ -26,23 +26,21 @@
 <body>
 	
     @include ('layouts/topnav')
+	
 	<div class="container">
     	@if(Session::has('flash_message'))
-            <div class="container">      
-                <div class="alert alert-success"><em> {!! session('flash_message') !!}</em>
-                </div>
+    		<br>
+            <div class="alert alert-success">
+            	<em> {!! session('flash_message') !!}</em>
             </div>
         @endif 
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">              
-            	@include ('errors.list') {{-- Including error file --}}
-            </div>
-        </div>
+		<br>
+		@include ('errors.list') {{-- Including error file --}}
         <br>
         @yield('content')
         <br>
     </div>
+    
     @include ('layouts/footer')
     
 </body>

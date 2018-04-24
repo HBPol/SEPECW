@@ -12,10 +12,10 @@
     <hr>
     {!! Form::open(['method' => 'DELETE', 'route' => ['news.destroy', $news->id] ]) !!}
     <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
-    @can('Edit News')
+    @can('Edit entries')
     <a href="{{ route('news.edit', $news->id) }}" class="btn btn-info" role="button">Edit</a>
     @endcan
-    @can('Delete News')
+    @can('Delete entries')
     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
     @endcan
     {!! Form::close() !!}

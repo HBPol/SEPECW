@@ -27,6 +27,8 @@ Route::resource('permissions', 'PermissionController');
 
 Route::resource('news', 'NewsController');
 
+Route::resource('artpieces', 'ArtPieceController');
+
 
 
 

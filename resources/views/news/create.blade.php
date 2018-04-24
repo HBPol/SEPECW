@@ -8,7 +8,7 @@
         <h1>Create News Item</h1>
         <hr>
 
-    {{-- Using the Laravel HTML Form Collective to create the form --}}
+    	{{-- Using the Laravel HTML Form Collective to create the form --}}
         {{ Form::open(array('route' => 'news.store')) }}
 
         <div class="form-group">
