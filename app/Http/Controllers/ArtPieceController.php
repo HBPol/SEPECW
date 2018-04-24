@@ -45,27 +45,33 @@ class ArtPieceController extends Controller
      */
     public function store(Request $request)
     {
-        //Validating fields
+        //Validate fields
         $this->validate($request, [
             'title'=>'required|max:100',
             'description' =>'required',
             'type' =>'required',
             'artist' =>'required',
+            'filename' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',                       
         ]);
+        //Get the client's image filename        
+        $filename = $request['filename']->getClientOriginalName();
         
-        $title = $request['title'];
-        $description = $request['description'];
-        $type = $request['type'];
-        $artist = $request['artist'];
-        $price = $request['price'];
+        //Move the file to /img within the public folder
+        $request['filename']->move(public_path('img'), $filename);        
         
-        
-        $artpieces = ArtPiece::create($request->only('title', 'description', 'type', 'artist', 'price'));
+        //Add the items to the database        
+        $artpieces = ArtPiece::create([
+            'title' => request('title'),
+            'description' => request('description'),
+            'type' => request('type'),
+            'artist' => request('artist'),
+            'price' => request('price'),
+            'filename' => $filename
+        ]);
         
         //Display a successful message upon save
         return redirect()->route('artpieces.index')
-        ->with('flash_message', 'New item ,
-             '. $artpieces->title.' created');
+        ->with('flash_message', 'New item , '. $artpieces->title.' created');
     }
 
     /**
@@ -77,9 +83,10 @@ class ArtPieceController extends Controller
     public function show($id)
     {
         //Find ArtPieces of id = $id
-        $artPiece = ArtPiece::findOrFail($id); 
+        $artpiece = ArtPiece::findOrFail($id);
         
-        return view ('artpieces.show', compact('artPiece'));
+        
+        return view ('artpieces.show', compact('artpiece'));
     }
 
     /**
@@ -112,6 +119,7 @@ class ArtPieceController extends Controller
             'type' =>'required',
             'artist' =>'required',
             'price' =>'required',
+            'filename' => 'required',
         ]);
         
         $artPiece = ArtPiece::findOrFail($id);
@@ -120,6 +128,7 @@ class ArtPieceController extends Controller
         $artPiece->type = $request->input('type');
         $artPiece->artist = $request->input('artist');
         $artPiece->price = $request->input('price');
+        $artPiece->filename = $request->input('filename');
         $artPiece->save();
         
         return redirect()->route('artpieces.show',
@@ -135,13 +144,11 @@ class ArtPieceController extends Controller
      */
     public function destroy($id)
     {
-        //
-        //
+        //        
         $artPiece = ArtPiece::findOrFail($id);
         $artPiece->delete();
         
         return redirect()->route('artpieces.index')
-        ->with('flash_message',
-            'Item successfully deleted');
+        ->with('flash_message', 'Item successfully deleted');
     }
 }

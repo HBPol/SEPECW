@@ -8,6 +8,6 @@ class ArtPiece extends Model
 {
     //Make the following mass assignable
     protected $fillable = [
-        'title', 'description', 'type', 'artist', 'price'
+        'title', 'description', 'type', 'artist', 'price', 'filename'
     ];
 }

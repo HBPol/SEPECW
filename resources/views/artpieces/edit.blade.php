@@ -9,7 +9,7 @@
         <h1>Edit information</h1>
         <hr>
     	{{-- Using the Laravel HTML Form Collective to handle the form --}}
-        {{ Form::model($artPiece, array('route' => array('artpieces.update', $artPiece->id), 'method' => 'PUT')) }}
+        {{ Form::model($artPiece, array('route' => array('artpieces.update', $artPiece->id), 'method' => 'PUT', 'files' => true)) }}
        
         <div class="form-group">
             {{ Form::label('title', 'Title') }}
@@ -35,6 +35,10 @@
 
             {{ Form::label('price', 'Price:') }}
             {{ Form::text('price', null, array('class' => 'form-control')) }}
+            <br>
+            
+            {{ Form::label('filename', 'Upload image:') }}
+            {{ Form::file('filename', null, array('class' => 'form-control')) }}
             <br>
 
             {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}

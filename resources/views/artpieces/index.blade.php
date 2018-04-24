@@ -8,13 +8,16 @@
                     <div class="panel-heading">Page {{ $artpieces->currentPage() }} of {{ $artpieces->lastPage() }}</div>
                     @foreach ($artpieces as $artpiece)
                         <div class="panel-body">
+                        	<ul>
                             <li style="list-style-type:disc">
-                                <a href="{{ route('artpieces.show', $artpiece->id ) }}"><b>{{ $artpiece->title }}</b><br>
-                                    <p class="teaser">
-                                       {{  str_limit($artpiece->description, 100) }} {{-- Limit teaser to 100 characters --}}
-                                    </p>
-                                </a>
+                                <a href="{{ route('artpieces.show', $artpiece->id ) }}"><b>{{ $artpiece->title }}</b></a>
+                                <p class="teaser">{{  str_limit($artpiece->description, 100) }} {{-- Limit teaser to 100 characters --}}</p>
+                                <p>Type:&nbsp;{{ $artpiece->type }}</p>
+                                <p>By:&nbsp;{{ $artpiece->artist }}</p>
+                                <p>Price:&nbsp;&pound;{{ $artpiece->price }}</p>
+                                <img alt="Photo" src="/img/{{ $artpiece->filename }}">                                   
                             </li>
+                            </ul>
                         </div>
                     @endforeach
                     </div>

@@ -41,7 +41,7 @@ class ClearanceMiddleware {
 
         if ($request->isMethod('Delete')) //If user is deleting a post
          {
-            if (!Auth::user()->hasPermissionTo('Delete entry')) {
+            if (!Auth::user()->hasPermissionTo('Delete entries')) {
                 abort('401');
             } 
          else 

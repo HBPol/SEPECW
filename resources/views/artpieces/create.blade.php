@@ -9,7 +9,7 @@
         <h1>Add a new art item</h1>
         <hr>
     	{{-- Using the Laravel HTML Form Collective to create the form --}}
-        {{ Form::open(array('route' => 'artpieces.store')) }}
+        {{ Form::open(array('route' => 'artpieces.store', 'files' => true)) }}
     
         <div class="form-group">
             {{ Form::label('title', 'Title') }}
@@ -26,7 +26,7 @@
             	'painting' => 'Painting',
             	'photography' => 'Photography',
             	'sculpture' => 'Sculpture',
-            	], null, array('class' => 'form-control')) }}
+            	], null, array('class' => 'form-control custom-select')) }}
             	<br>
 
             {{ Form::label('artist', 'Artist:') }}
@@ -37,6 +37,9 @@
             {{ Form::text('price', null, array('class' => 'form-control')) }}
             <br>
             
+            {{ Form::label('filename', 'Upload image:') }}
+            {{ Form::file('filename', null, array('class' => 'form-control')) }}
+            <br>
     
             {{ Form::submit('Add', array('class' => 'btn btn-success btn-lg btn-block')) }}
             
